@@ -1,5 +1,5 @@
 # Step 1: Build the React application
-FROM node:14 AS dist
+FROM node:20 AS dist
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
