@@ -13,7 +13,7 @@ function App() {
     <>
       <h1>Vite + React</h1>
       <div className="card">
-        <h1>Deployed by CICD</h1>
+        <h1>Deployed by Github Actions</h1>
         <button onClick={handleClick}>Click me</button>
       </div>
     </>
