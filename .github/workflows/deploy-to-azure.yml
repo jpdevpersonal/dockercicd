@@ -1,13 +1,20 @@
 name: Deploy to Azure Web App
 
 on:
-  push:
-    branches:
-      - feature/build-and-deploy-docker-image
+  workflow_run:
+    workflows: ["Build Docker Image"]
+    types:
+      - completed
+# previous
+#   push:
+#     branches:
+#       - feature/build-and-deploy-docker-image
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # check if previous job completed successfully
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout repository
