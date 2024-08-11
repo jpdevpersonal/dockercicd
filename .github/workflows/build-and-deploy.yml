@@ -30,7 +30,7 @@ jobs:
           tags: jpickard393/docker-git:latest
   deploy:
     runs-on: ubuntu-latest
-
+    needs: build
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
