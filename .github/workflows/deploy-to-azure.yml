@@ -1,13 +1,13 @@
 name: Deploy to Azure Web App
 
 on:
-  # workflow_run:
-  #   workflows: ["Build Docker Image"]
-  #   types:
-  #     - completed
   push:
     branches:
       - feature/build-and-deploy-docker-image
+  workflow_run:
+    workflows: ["Build Docker Image"]
+    types:
+      - completed
 
 jobs:
   build:
