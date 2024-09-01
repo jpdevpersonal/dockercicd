@@ -13,9 +13,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install npm packages
         run: npm i
-      - name: Run_Tests
+      - name: run_tests
         run: npm run test
-      - name: Echo success
+      - name: Show_Outcome
         # if always makes sure that the next step always runs even if the one above fails
         if: always()
         run: |
