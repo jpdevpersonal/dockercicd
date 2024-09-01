@@ -16,12 +16,11 @@ jobs:
       - name: Run_Tests
         run: npm run test
       - name: Echo success
-      # if always makes sure that the next step always runs even if the one above fails
-      if: always() 
-      run: |
-        if [ "${{ steps.run_tests.outcome }}" == "success" ]; then
-          echo "Success!"
-        else
-          echo "Tests fail"
-        fi
-     
+        # if always makes sure that the next step always runs even if the one above fails
+        if: always()
+        run: |
+          if [ "${{ steps.run_tests.outcome }}" == "success" ]; then
+            echo "Success!"
+          else
+            echo "Tests fail"
+          fi
