@@ -3,6 +3,7 @@ name: Basic-CI-TEst
 # Specify the branch to work on
 on:
   push:
+    # Note: this will not work on initial commit or push of branch
     branches: [create-pipeline-from-scratch]
   # Examples of what on can do
   # pull_request:
