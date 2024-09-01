@@ -22,5 +22,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install npm packages
         run: npm i
-      - name: Run tests
+      - name: Run_Tests
         run: npm run test
+      - name: Echo success
+        if: steps.Run_Tests.outcome == 'success'
+        run: echo 'Success!'
+      - name: Echo failure
+        if: steps.Run_Tests.outcome != 'success'
+        run: echo 'The Tests Have Failed'
