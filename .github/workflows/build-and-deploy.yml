@@ -5,15 +5,6 @@ on:
   push:
     # Note: this will not work on initial commit or push of branch
     branches: [create-pipeline-from-scratch]
-  # Examples of what on can do
-  # pull_request:
-
-  # schedule:
-  #   - cron: '0 2 * * *'
-
-  # paths:
-  #   - 'src/**'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,8 +16,12 @@ jobs:
       - name: Run_Tests
         run: npm run test
       - name: Echo success
-        if: steps.Run_Tests.outcome == 'success'
-        run: echo 'Success!'
-      - name: Echo failure
-        if: steps.Run_Tests.outcome != 'success'
-        run: echo 'The Tests Have Failed'
+      # if always makes sure that the next step always runs even if the one above fails
+      if: always() 
+      run: |
+        if [ "${{ steps.run_tests.outcome }}" == "success" ]; then
+          echo "Success!"
+        else
+          echo "Tests fail"
+        fi
+     
