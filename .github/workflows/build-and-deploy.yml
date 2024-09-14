@@ -34,7 +34,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
   buildDockerImage:
-    needs: runTests
+    needs: loginToDocker
     runs-on: ubuntu-latest
 
     steps:
@@ -45,7 +45,7 @@ jobs:
         run: docker build -t my-image-name -f path/to/Dockerfile .
 
   deploy:
-    needs: loginToDocker
+    needs: buildDockerImage
     runs-on: ubuntu-latest
     steps:
       - name: Log in to Azure
