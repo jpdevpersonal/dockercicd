@@ -37,6 +37,8 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Build Docker image
         run: docker build -t jpickard393/dockercicd -f Dockerfile .
+      - name: Push Docker image
+        run: docker push jpickard393/dockercicd
 
   deploy:
     needs: buildDockerImage
