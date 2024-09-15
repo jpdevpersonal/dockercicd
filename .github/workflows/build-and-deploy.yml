@@ -1,10 +1,4 @@
 name: Basic-CI-Test
-# Purpose
-#
-# On push to the branch
-# Checkout
-# Run tests
-# If tests pass then build and deploy docker container
 
 # Specify the branch to work on
 on:
