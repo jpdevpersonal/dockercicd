@@ -6,28 +6,34 @@ on:
     # Note: this will not work on initial commit or push of branch
     branches: [create-pipeline-from-scratch]
 jobs:
-  checkoutBranch:
+  # checkoutBranch:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Set up Git
+  #       run: |
+  #         git init
+  #         git config user.name "GitHub Actions"
+  #         git config user.email "actions@github.com"
+
+  #     - name: Clone repo and checkout branch
+  #       run: |
+  #         git clone https://github.com/${{ github.repository }} repo
+  #         cd repo
+  #         git fetch origin
+  #         git checkout create-pipeline-from-scratch
+
+  runTests:
+    # needs: checkoutBranch
     runs-on: ubuntu-latest
+
     steps:
+      # - uses: actions/checkout@v2
       - name: Set up Git
         run: |
           git init
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Clone repo and checkout branch
-        run: |
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-          git fetch origin
-          git checkout create-pipeline-from-scratch
-
-  runTests:
-    needs: checkoutBranch
-    runs-on: ubuntu-latest
-
-    steps:
-      # - uses: actions/checkout@v2
       - name: checkout
         run: |
           git clone https://github.com/${{ github.repository }} repo
