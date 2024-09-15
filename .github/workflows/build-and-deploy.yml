@@ -40,11 +40,13 @@ jobs:
           cd repo
           git fetch origin
           git checkout create-pipeline-from-scratch
+
       - name: Install npm packages
         id: npm_install
+        working-directory: ./repo
         run: npm i
       - name: Run Tests
-        id: run_tests
+        working-directory: ./repo
         run: npm run test
 
   buildDockerImage:
