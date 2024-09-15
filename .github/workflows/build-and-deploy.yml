@@ -53,4 +53,4 @@ jobs:
           --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} 
           --docker-custom-image-name ${{ secrets.DOCKER_USERNAME }}/dockercicd:latest
           az webapp restart --name dockercicdweb
-          --resource-group cntainer-resgroup
+          --resource-group container-resgroup
