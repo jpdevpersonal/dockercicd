@@ -5,7 +5,7 @@ import App from "./App";
 describe("App Component", () => {
   test("renders the component correctly", () => {
     render(<App />);
-    expect(screen.getByText("Vite + React")).toBeInTheDocument();
+    expect(screen.getByText("Docker CICD Test")).toBeInTheDocument();
     expect(
       screen.getByText("Built and Deployed by Github Actions")
     ).toBeInTheDocument();
