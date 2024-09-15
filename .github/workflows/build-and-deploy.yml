@@ -6,11 +6,18 @@ on:
     # Note: this will not work on initial commit or push of branch
     branches: [create-pipeline-from-scratch]
 jobs:
+  checkoutBranch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout-branch
+        run: git checkout create-pipeline-from-scratch
+
   runTests:
+    needs: checkoutBranch
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      #- uses: actions/checkout@v2
       - name: Install npm packages
         id: npm_install
         run: npm i
@@ -23,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Build Docker image
@@ -40,17 +47,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # - name: Deploy image to Azure Web App
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-      #     images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-      - name: Deploy to Azure Web App
-        run: |
-          az webapp config container set --name ${{ secrets.AZURE_WEBAPP_NAME }}
-          --docker-custom-image-name ${{ secrets.DOCKER_USERNAME }}/dockercicd:latest
-          az webapp restart --name dockercicdweb
+      - name: Deploy image to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
       # - name: Deploy to Azure Web App
       #   run: |
