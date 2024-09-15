@@ -29,7 +29,11 @@ jobs:
     steps:
       # - uses: actions/checkout@v2
       - name: checkout
-        run: git checkout create-pipeline-from-scratch
+        run: |
+          git clone https://github.com/${{ github.repository }} repo
+          cd repo
+          git fetch origin
+          git checkout create-pipeline-from-scratch
       - name: Install npm packages
         id: npm_install
         run: npm i
