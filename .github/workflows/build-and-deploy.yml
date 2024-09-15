@@ -39,6 +39,11 @@ jobs:
 
     steps:
       # - uses: actions/checkout@v2
+      - name: Set up Git
+        run: |
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
       - name: checkout
         run: |
           git clone https://github.com/${{ github.repository }} repo
