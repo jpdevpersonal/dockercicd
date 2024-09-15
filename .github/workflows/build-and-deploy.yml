@@ -9,8 +9,18 @@ jobs:
   checkoutBranch:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout-branch
-        run: git checkout create-pipeline-from-scratch
+      - name: Set up Git
+        run: |
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Clone repository
+        run: |
+          git clone https://github.com/${{ github.repository }} repo
+          cd repo
+          git fetch origin
+          git checkout create-pipeline-from-scratch
 
   runTests:
     needs: checkoutBranch
