@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/actions/manual-checkout/action.yml
+      - uses: ./.github/workflows/manual-checkout.yml
       # - uses: actions/checkout@v2
       # We have to checkout the repo first or it does not work
       # - name: Set up Git
