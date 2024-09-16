@@ -10,21 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/workflows/manual-checkout.yml
-      # - uses: actions/checkout@v2
+      # - uses: ./.github/workflows/manual-checkout.yml
+      # - uses: actions/checkout@v3
       # We have to checkout the repo first or it does not work
-      # - name: Set up Git
-      #   run: |
-      #     git init
-      #     git config user.name "GitHub Actions"
-      #     git config user.email "actions@github.com"
+      - name: Set up Git
+        run: |
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-      # - name: checkout
-      #   run: |
-      #     git clone https://github.com/${{ github.repository }} repo
-      #     cd repo
-      #     git fetch origin
-      #     git checkout create-pipeline-from-scratch
+      - name: checkout
+        run: |
+          git clone https://github.com/${{ github.repository }} repo
+          cd repo
+          git fetch origin
+          git checkout create-pipeline-from-scratch
 
       - name: Install npm packages
         id: npm_install
@@ -39,20 +39,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ./.github/actions/manual-checkout
-      # - uses: actions/checkout@v2
+      # - uses: ./.github/actions/manual-checkout
+      # - uses: actions/checkout@v3
       # We have to checkout the repo first or it does not work Is tere a better way?
-      # - name: Set up Git
-      #   run: |
-      #     git init
-      #     git config user.name "GitHub Actions"
-      #     git config user.email "actions@github.com"
-      # - name: checkout
-      #   run: |
-      #     git clone https://github.com/${{ github.repository }} repo
-      #     cd repo
-      #     git fetch origin
-      #     git checkout create-pipeline-from-scratch
+      - name: Set up Git
+        run: |
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+      - name: checkout
+        run: |
+          git clone https://github.com/${{ github.repository }} repo
+          cd repo
+          git fetch origin
+          git checkout create-pipeline-from-scratch
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
@@ -78,12 +78,3 @@ jobs:
         with:
           app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-      # This does not work - manually deploy to azure
-      # - name: Deploy to Azure Web App
-      #   run: |
-      #     az webapp config container set --name ${{ secrets.AZURE_WEBAPP_NAME }}
-      #     --resource-group container-resgroup
-      #     --docker-custom-image-name ${{ secrets.DOCKER_USERNAME }}/dockercicd:latest
-      #     az webapp restart --name dockercicdweb
-      #     --resource-group container-resgroup
