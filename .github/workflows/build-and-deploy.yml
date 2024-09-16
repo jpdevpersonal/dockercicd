@@ -10,20 +10,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: ./github/workflows/manual-checkout.yml
       # - uses: actions/checkout@v2
       # We have to checkout the repo first or it does not work
-      - name: Set up Git
-        run: |
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+      # - name: Set up Git
+      #   run: |
+      #     git init
+      #     git config user.name "GitHub Actions"
+      #     git config user.email "actions@github.com"
 
-      - name: checkout
-        run: |
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-          git fetch origin
-          git checkout create-pipeline-from-scratch
+      # - name: checkout
+      #   run: |
+      #     git clone https://github.com/${{ github.repository }} repo
+      #     cd repo
+      #     git fetch origin
+      #     git checkout create-pipeline-from-scratch
 
       - name: Install npm packages
         id: npm_install
@@ -38,8 +39,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: ./github/workflows/manual-checkout.yml
       # - uses: actions/checkout@v2
-      # We have to checkout the repo first or it does not work
+      # We have to checkout the repo first or it does not work Is tere a better way?
       # - name: Set up Git
       #   run: |
       #     git init
