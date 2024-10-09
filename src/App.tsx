@@ -5,16 +5,17 @@ function App() {
     console.log("hello world");
   }, []);
   function handleClick() {
-    console.log("hello");
+    console.log("Hello");
   }
 
   return (
     <>
       <h1>Docker CICD Test</h1>
       <div className="card">
-        <h1>Built and Deployed by Github Actions</h1>
-        <h1>Version 12</h1>
-        <button onClick={handleClick}>Click me</button>
+        <h1>Manual checkout</h1>
+        <h1>Manual Docker Build</h1>
+        <h1>Version 13</h1>
+        <button onClick={handleClick}>Log To Console</button>
       </div>
     </>
   );
