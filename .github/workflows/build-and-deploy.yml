@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       # We have to checkout the repo first or it does not work
-      - name: Set up Git
-        run: |
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+      # - name: Set up Git
+      #   run: |
+      #     git init
+      #     git config user.name "GitHub Actions"
+      #     git config user.email "actions@github.com"
 
-      - name: checkout
-        run: |
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-          git fetch origin
-          git checkout version-and-diff
+      # - name: checkout
+      #   run: |
+      #     git clone https://github.com/${{ github.repository }} repo
+      #     cd repo
+      #     git fetch origin
+      #     git checkout version-and-diff
 
       - name: Install npm packages
         id: npm_install
@@ -61,7 +61,7 @@ jobs:
         run: docker build -t jpickard393/dockercicd -f Dockerfile .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}
+        run: docker push jpickard393/dockercicd
   deploy:
     needs: buildDockerImage
     runs-on: ubuntu-latest
