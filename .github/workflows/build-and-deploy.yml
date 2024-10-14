@@ -23,7 +23,7 @@ jobs:
           git clone https://github.com/${{ github.repository }} repo
           cd repo
           git fetch origin
-          git checkout ersion-and-diff
+          git checkout version-and-diff
 
       - name: Install npm packages
         id: npm_install
