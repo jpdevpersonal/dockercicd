@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import packageJson from "../package.json";
 
 function App() {
   useEffect(() => {
@@ -14,7 +15,7 @@ function App() {
       <div className="card">
         <h1>Manual checkout</h1>
         <h1>Manual Docker Build</h1>
-        <h1>Version 13</h1>
+        <h1>Version: {packageJson.version}</h1>
         <button onClick={handleClick}>Log To Console</button>
       </div>
     </>

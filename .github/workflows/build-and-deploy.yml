@@ -43,7 +43,7 @@ jobs:
         run: git push
 
   buildDockerImage:
-    needs: runTests
+    needs: bumpUpTheVersion
     runs-on: ubuntu-latest
 
     steps:
