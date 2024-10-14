@@ -1,5 +1,9 @@
 name: Basic-CI-Test
 
+# Grant the GITHUB_TOKEN write permissions to contents
+permissions:
+  contents: write
+
 # Specify the branch to work on
 on:
   push:
