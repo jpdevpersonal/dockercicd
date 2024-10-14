@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 function App() {
-  const version = import.meta.env.VITE_APP_VERSION;
   useEffect(() => {
     console.log("hello world");
   }, []);
@@ -15,7 +14,7 @@ function App() {
       <div className="card">
         <h1>Manual checkout</h1>
         <h1>Manual Docker Build</h1>
-        <h2>Version: {version}</h2>
+        <h2>Version: 1</h2>
         <button onClick={handleClick}>Log To Console</button>
       </div>
     </>
