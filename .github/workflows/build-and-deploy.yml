@@ -58,10 +58,10 @@ jobs:
 
       - name: Build Docker image
         working-directory: ./repo
-        run: docker build -t jpickard393/dockercicd -f Dockerfile .
+        run: docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} -f Dockerfile .
 
       - name: Push Docker image
-        run: docker push jpickard393/dockercicd
+        run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}
   deploy:
     needs: buildDockerImage
     runs-on: ubuntu-latest
