@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       # We have to checkout the repo first or it does not work
       # - name: Set up Git
       #   run: |
@@ -38,19 +38,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - uses: actions/checkout@v3
-      - name: Set up Git
-        run: |
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+      - uses: actions/checkout@v3
+      # - name: Set up Git
+      #   run: |
+      #     git init
+      #     git config user.name "GitHub Actions"
+      #     git config user.email "actions@github.com"
 
-      - name: checkout
-        run: |
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-          git fetch origin
-          git checkout version-and-diff
+      # - name: checkout
+      #   run: |
+      #     git clone https://github.com/${{ github.repository }} repo
+      #     cd repo
+      #     git fetch origin
+      #     git checkout version-and-diff
 
       - name: Log in to Docker Hub
         # This is not the most secure way!
