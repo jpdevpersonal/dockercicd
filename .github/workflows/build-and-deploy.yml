@@ -4,7 +4,7 @@ name: Basic-CI-Test
 on:
   push:
     # Note: this will not work on initial commit or push of branch
-    branches: [create-pipeline-from-scratch]
+    branches: [version-and-diff]
 jobs:
   runTests:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
           git clone https://github.com/${{ github.repository }} repo
           cd repo
           git fetch origin
-          git checkout create-pipeline-from-scratch
+          git checkout ersion-and-diff
 
       - name: Install npm packages
         id: npm_install
