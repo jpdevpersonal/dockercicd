@@ -11,6 +11,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
       - name: Install npm packages
         id: npm_install
         run: npm i
@@ -21,8 +24,10 @@ jobs:
       - name: Bump Version
         run: |
           # Configure Git user
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          # git config user.name "github-actions[bot]"
+          # git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # Bump version (patch, minor, or major)
           npm version patch -m "Bump version to %s"
