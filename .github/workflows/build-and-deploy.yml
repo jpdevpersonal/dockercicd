@@ -1,6 +1,6 @@
 name: Basic-CI-Test
 
-# Grant the GITHUB_TOKEN write permissions to contents
+# Make sure the GITHUB_TOKEN has write permissions to contents
 permissions:
   contents: write
 
@@ -39,13 +39,7 @@ jobs:
 
           # Bump version (patch, minor, or major)
           EW_VERSION=$(npm version patch -m "Bump version to %s")
-          echo "New version: $NEW_VERSION"
-
-          # Extract version number from package.json
-          VERSION=$(node -p "require('./package.json').version")
-
-          # Export the VERSION as an environment variable for subsequent steps
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "New version is: $NEW_VERSION"
 
       - name: Push Version Bump
         run: git push

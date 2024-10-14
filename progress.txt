@@ -1,0 +1,6 @@
+To Do
+Make sure it uses my account for git so I don;t have to rebase after version bump push
+
+show code diference using git command
+
+can we show the correct version number on the screen - the one that has just been bumped
