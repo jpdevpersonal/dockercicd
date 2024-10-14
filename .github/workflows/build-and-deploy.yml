@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
       - name: Login and Bump
         run: |
           # Configure Git user
