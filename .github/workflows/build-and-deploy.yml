@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - uses: ./.github/workflows/manual-checkout.yml
       # - uses: actions/checkout@v3
       # We have to checkout the repo first or it does not work
       - name: Set up Git
@@ -40,19 +39,7 @@ jobs:
 
     steps:
       # - uses: ./.github/actions/manual-checkout
-      # - uses: actions/checkout@v3
-      # We have to checkout the repo first or it does not work Is tere a better way?
-      - name: Set up Git
-        run: |
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-      - name: checkout
-        run: |
-          git clone https://github.com/${{ github.repository }} repo
-          cd repo
-          git fetch origin
-          git checkout create-pipeline-from-scratch
+      - uses: actions/checkout@v3
 
       - name: Log in to Docker Hub
         # This is not the most secure way!
@@ -60,11 +47,10 @@ jobs:
 
       - name: Build Docker image
         working-directory: ./repo
-        run: docker build -t jpickard393/dockercicd -f Dockerfile .
+        run: docker build -t ${{ secrets.DOCKER_IMAGE_NAME }} -f Dockerfile .
 
       - name: Push Docker image
-        run: docker push jpickard393/dockercicd
-
+        run: docker push ${{ secrets.DOCKER_IMAGE_NAME }}
   deploy:
     needs: buildDockerImage
     runs-on: ubuntu-latest
