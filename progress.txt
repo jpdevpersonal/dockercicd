@@ -1,11 +1,17 @@
 To Do
 
 Done - Make it show version number in logs
- 
-Make sure it uses my account for git so I don't have to rebase after version bump push
 
 Done - show code diference using git command
 
 can we show the correct version number on the screen - the one that has just been bumped
 
-Update the version of node
+Done - Update the version of checkout to v4
+
+
+
+Questions
+
+Production and Dev environments
+    How would I use these
+    
