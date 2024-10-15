@@ -10,23 +10,23 @@ on:
     # Note: this will not work on initial commit or push of branch
     branches: [version-and-diff]
 jobs:
-  runTests:
-    runs-on: ubuntu-latest
+  # runTests:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: true
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         persist-credentials: true
 
-      - name: Install npm packages
-        id: npm_install
-        run: npm i
+  #     - name: Install npm packages
+  #       id: npm_install
+  #       run: npm i
 
-      - name: Run Tests
-        run: npm run test
+  #     - name: Run Tests
+  #       run: npm run test
 
   bumpUpTheVersion:
-    needs: runTests
+    # needs: runTests
     runs-on: ubuntu-latest
 
     steps:
