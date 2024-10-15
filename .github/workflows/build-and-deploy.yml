@@ -25,20 +25,6 @@ jobs:
       - name: Run Tests
         run: npm run test
 
-  showDiff:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout current branch
-        uses: actions/checkout@v3
-        # with:
-        #   ref: ${{ github.ref }}
-
-      - name: Fetch main branch
-        run: git fetch origin main:main
-
-      - name: Show diff with main and my branch
-        run: git diff main
-
   bumpUpTheVersion:
     needs: runTests
     runs-on: ubuntu-latest
@@ -57,6 +43,19 @@ jobs:
 
       - name: Push Version Bump
         run: git push
+
+  showDiff:
+    needs: bumpUpTheVersion
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v3
+
+      - name: Fetch main branch
+        run: git fetch origin main:main
+
+      - name: Show diff with main and my branch
+        run: git diff main
 
   buildDockerImage:
     needs: bumpUpTheVersion
