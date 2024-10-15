@@ -38,7 +38,7 @@ jobs:
           git config user.email "jpickard@and.digital"
 
           # Bump version (patch, minor, or major)
-          EW_VERSION=$(npm version patch -m "Bump version to %s")
+          NEW_VERSION=$(npm version patch -m "Bump version to %s")
           echo "New version is: $NEW_VERSION"
 
       - name: Push Version Bump
