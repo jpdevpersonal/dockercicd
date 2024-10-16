@@ -55,7 +55,7 @@ jobs:
         run: git fetch origin main:main
 
       - name: Show diff with main and my branch
-        run: git diff main
+        run: git diff main --stat
 
   buildDockerImage:
     needs: bumpUpTheVersion

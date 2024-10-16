@@ -14,4 +14,12 @@ Questions
 
 Production and Dev environments
     How would I use these
+
+How can I use web hooks
+    What is a typical use
+
+How can I deploy to different environments
+    Can I deploy to Dev 
+        then on success of all jobs deploy to Production
+
     
