@@ -14,7 +14,8 @@ function App() {
       <div className="card">
         <h1>Manual checkout</h1>
         <h1>Manual Docker Build</h1>
-        <h2>Version: 10</h2>
+        <h2>Version: 1</h2>
+        <h1>Development</h1>
         <button onClick={handleClick}>Log To Console</button>
       </div>
     </>
