@@ -12,6 +12,7 @@ on:
 jobs:
   runTests:
     runs-on: ubuntu-latest
+    environment: development
 
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +29,7 @@ jobs:
   bumpUpTheVersion:
     needs: runTests
     runs-on: ubuntu-latest
+    environment: development
 
     steps:
       - uses: actions/checkout@v4
@@ -49,6 +51,8 @@ jobs:
   showDiff:
     needs: bumpUpTheVersion
     runs-on: ubuntu-latest
+    environment: development
+
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4
@@ -62,6 +66,7 @@ jobs:
   buildDockerImage:
     needs: bumpUpTheVersion
     runs-on: ubuntu-latest
+    environment: development
 
     steps:
       - uses: actions/checkout@v4
@@ -77,6 +82,8 @@ jobs:
   deploy:
     needs: buildDockerImage
     runs-on: ubuntu-latest
+    environment: development
+
     steps:
       - name: Log in to Azure
         uses: azure/login@v2
