@@ -109,13 +109,13 @@ jobs:
 
       - name: Merge-deploy-dev-merge--deploy-prod into main
         run: |
-          git config user.name "Julian Pickard"
-          git config user.email "jpickard@and.digital"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
           # Get latest 'main'
-          git fetch --all
-          git checkout main
-          git pull main
+          run: git fetch origin main:main
+          git checkout origin main
+          git pull origin main
 
           git merge ${{ github.ref_name }} -m "Merge '${{ github.ref_name }}' with 'main after successful deploy to development'"
-          git push main
+          git push origin main
