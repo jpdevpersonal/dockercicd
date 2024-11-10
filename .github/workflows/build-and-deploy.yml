@@ -109,8 +109,8 @@ jobs:
 
       - name: Merge-deploy-dev-merge--deploy-prod into main
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "Julian Pickard"
+          git config user.email "jpickard@and.digital"
 
           # Get latest 'main'
           git fetch --all
