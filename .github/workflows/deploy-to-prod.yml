@@ -6,9 +6,14 @@ permissions:
 
 # Specify the branch to work on
 on:
-  push:
-    # Note: this will not work on initial commit or push of branch
-    branches: [main]
+  workflow_run:
+    workflows: ["Build-and-deploy"]
+    types:
+      - completed
+
+#   push:
+#     # Note: this will not work on initial commit or push of branch
+#     branches: [main]
 jobs:
   runTests:
     runs-on: ubuntu-latest
