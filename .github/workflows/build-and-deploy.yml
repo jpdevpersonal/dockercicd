@@ -112,8 +112,14 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          git fetch origin main
-          git checkout origin main
+          # Fetch all branches
+          git fetch --all
+
+          # List branches for debugging
+          git branch -a
+
+          # Ensure we have the latest 'main'
+          git checkout main || git checkout -b main origin/main
           git pull origin main
 
           git merge ${{ github.ref_name }} -m "Merge '${{ github.ref_name }}' with 'main after successful deploy to development'"
