@@ -98,16 +98,16 @@ jobs:
           images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
   merge-to-main:
-    # needs: deploy-to-development
+    needs: deploy-to-development
     runs-on: ubuntu-latest
     steps:
-      - name: checkout-main
+      - name: Fetch all
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetch all history - needed or it does not find main
           persist-credentials: true # needed for pushing changes
 
-      - name: Merge-deploy-dev-merge--deploy-prod into main
+      - name: Chaeckout and merge branch into main
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
