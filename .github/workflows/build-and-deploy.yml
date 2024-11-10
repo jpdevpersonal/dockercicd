@@ -8,11 +8,11 @@ permissions:
 on:
   push:
     # Note: this will not work on initial commit or push of branch
-    branches: [deploy-dev-merge-deploy-prod]
+    branches: [main]
 jobs:
   runTests:
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
       - uses: actions/checkout@v4
@@ -26,45 +26,8 @@ jobs:
       - name: Run Tests
         run: npm run test
 
-  bumpUpTheVersion:
-    needs: runTests
-    runs-on: ubuntu-latest
-    environment: development
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Configure Git User
-        run: |
-          # Configure Git user
-          git config user.name "Julian Pickard"
-          git config user.email "jpickard@and.digital"
-
-          # Bump version (patch, minor, or major)
-      - name: Bump Version
-        run: |
-          NEW_VERSION=$(npm version patch -m "Bump version to %s")
-          echo "New version is: $NEW_VERSION"
-
-      - name: Push Version Bump
-        run: git push
-
-  showDiff:
-    needs: bumpUpTheVersion
-    runs-on: ubuntu-latest
-    environment: development
-
-    steps:
-      - name: Checkout current branch
-        uses: actions/checkout@v4
-
-      - name: Fetch main branch
-        run: git fetch origin main:main #This tells git to fetch main and update or create main in it's local storage
-
-      - name: Show diff with main and my branch
-        run: git diff main --stat
-
   buildDockerImage:
-    needs: bumpUpTheVersion
+    needs: runTests
     runs-on: ubuntu-latest
     environment: development
 
@@ -80,10 +43,10 @@ jobs:
       - name: Push Docker image
         run: docker push jpickard393/dockercicd
 
-  deploy-to-development:
+  deploy-production:
     needs: buildDockerImage
     runs-on: ubuntu-latest
-    environment: development
+    environment: production
 
     steps:
       - name: Log in to Azure
@@ -94,29 +57,5 @@ jobs:
       - name: Deploy image to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: dockercicd-development
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
           images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-  merge-to-main:
-    needs: deploy-to-development
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetch all
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Fetch all history - needed or it does not find main
-          persist-credentials: true # needed for pushing changes
-
-      - name: Chaeckout and merge branch into main
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
-          git fetch --all
-
-          # Ensure we have the latest main branch
-          git checkout main
-          git pull origin main
-
-          git merge ${{ github.ref_name }} -m "Merge '${{ github.ref_name }}' with 'main after successful deploy to development'"
-          git push origin main

@@ -1,4 +1,4 @@
-To Do
+Done
 
 after deploy to development is success
     merge branch with main
