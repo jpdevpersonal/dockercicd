@@ -1,0 +1,61 @@
+name: deploy-to-prod
+
+# Make sure the GITHUB_TOKEN has write permissions to contents
+permissions:
+  contents: write
+
+# Specify the branch to work on
+on:
+  push:
+    # Note: this will not work on initial commit or push of branch
+    branches: [main]
+jobs:
+  runTests:
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Install npm packages
+        id: npm_install
+        run: npm i
+
+      - name: Run Tests
+        run: npm run test
+
+  buildDockerImage:
+    needs: runTests
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Log in to Docker Hub
+        # This is not the most secure way!
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t jpickard393/dockercicd -f Dockerfile .
+
+      - name: Push Docker image
+        run: docker push jpickard393/dockercicd
+
+  deploy-production:
+    needs: buildDockerImage
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy image to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
