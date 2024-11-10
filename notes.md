@@ -140,3 +140,22 @@ These methods allow you to create reusable components in your GitHub Actions wor
 3. Shell scripts can be used for reusable step definitions, although they're not as integrated into the GitHub Actions ecosystem.
 
 Remember to commit all these files to your repository in their respective locations. The exact method you choose depends on your specific needs and the level of reusability you're aiming for.
+
+
+
+deploy-production:
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy image to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+          images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest

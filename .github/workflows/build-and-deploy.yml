@@ -8,7 +8,7 @@ permissions:
 on:
   push:
     # Note: this will not work on initial commit or push of branch
-    branches: [deploy-to-development]
+    branches: [deploy-dev-merge-depoly-prod]
 jobs:
   runTests:
     runs-on: ubuntu-latest
@@ -79,7 +79,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push jpickard393/dockercicd
-  deploy:
+  deploy-to-development:
     needs: buildDockerImage
     runs-on: ubuntu-latest
     environment: development
@@ -96,19 +96,20 @@ jobs:
           app-name: dockercicd-development
           images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
-  deploy-production:
-    needs: deploy
+  merge-to-main:
+    needs: deploy-to-development
     runs-on: ubuntu-latest
-    environment: production
-
     steps:
-      - name: Log in to Azure
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: checkout-main
+        uses: actions/checkout@v4
+      - name: Merge-deploy-dev-merge--deploy-prod into main
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
 
-      - name: Deploy image to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
-          images: ${{ secrets.DOCKER_IMAGE_NAME }}:latest
+          # Get latest 'main'
+          git checkout main
+          git pull origin main
+
+          git merge ${{ github.ref_name }} -m "Merge '${{ github.ref_name }}' with 'main after successful deploy to development'"
+          git push origin main
