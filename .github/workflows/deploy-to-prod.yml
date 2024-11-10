@@ -1,4 +1,4 @@
-name: Basic-CI-Test
+name: Deploy-to-prod
 
 # Make sure the GITHUB_TOKEN has write permissions to contents
 permissions:
