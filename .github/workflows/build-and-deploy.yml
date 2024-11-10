@@ -112,8 +112,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-          # Get latest 'main'
-          run: git fetch origin main
+          git fetch origin main
           git checkout origin main
           git pull origin main
 
