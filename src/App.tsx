@@ -12,8 +12,6 @@ function App() {
     <>
       <h1>Docker CICD Test</h1>
       <div className="card">
-        <h1>Deploy To Development</h1>
-        <h1>Merge into main</h1>
         <h1>Deploy To Production</h1>
         <h2>Version: 3</h2>
         <h1>Development</h1>
