@@ -115,11 +115,8 @@ jobs:
           # Fetch all branches
           git fetch --all
 
-          # List branches for debugging
-          git branch -a
-
           # Ensure we have the latest 'main'
-          git checkout main || git checkout -b main origin/main
+          git checkout main
           git pull origin main
 
           git merge ${{ github.ref_name }} -m "Merge '${{ github.ref_name }}' with 'main after successful deploy to development'"
