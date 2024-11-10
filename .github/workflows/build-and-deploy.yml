@@ -114,8 +114,8 @@ jobs:
 
           # Get latest 'main'
           git fetch --all
-          git checkout origin main
-          git pull origin main
+          git checkout main
+          git pull main
 
           git merge ${{ github.ref_name }} -m "Merge '${{ github.ref_name }}' with 'main after successful deploy to development'"
-          git push origin main
+          git push main
