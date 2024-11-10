@@ -36,6 +36,7 @@ jobs:
       - name: Configure Git User
         run: |
           # Configure Git user
+          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.repository }}
           git config user.name "Julian Pickard"
           git config user.email "jpickard@and.digital"
 
@@ -111,6 +112,7 @@ jobs:
         run: |
           # git config user.name "GitHub Actions"
           # git config user.email "actions@github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${{ github.repository }}
           git config user.name "Julian Pickard"
           git config user.email "jpickard@and.digital"
 
